@@ -42,14 +42,14 @@ public class HomePage extends WebPage{
 			}
 		}catch(FileNotFoundException e){
 			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-			Whiteboard whiteboard=new Whiteboard("whiteboardContainer",null);
-			this.add(whiteboard);
 		}catch(IOException e){
 			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+		}  finally{
+			Whiteboard whiteboard=new Whiteboard("whiteboardContainer",content);
+			this.add(whiteboard);
 		}
 
-		Whiteboard whiteboard=new Whiteboard("whiteboardContainer",content);
-		this.add(whiteboard);
+
 	}
 
 }
