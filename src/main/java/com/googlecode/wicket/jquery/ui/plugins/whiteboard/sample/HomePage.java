@@ -22,13 +22,33 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import java.io.*;
+
 public class HomePage extends WebPage{
 	private static final long serialVersionUID=1L;
 
 	public HomePage(final PageParameters parameters){
 		super(parameters);
+		String content="";
+		File savedWhiteboard=new File("Whiteboard_2013_08_12_01_28_13.json");
 
-		Whiteboard whiteboard=new Whiteboard("whiteboardContainer");
+		try{
+			BufferedReader reader = new BufferedReader(new FileReader(savedWhiteboard));
+
+			String line=reader.readLine();
+			while(line!=null){
+				content+=line;
+				line=reader.readLine();
+			}
+		}catch(FileNotFoundException e){
+			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+			Whiteboard whiteboard=new Whiteboard("whiteboardContainer",null);
+			this.add(whiteboard);
+		}catch(IOException e){
+			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+		}
+
+		Whiteboard whiteboard=new Whiteboard("whiteboardContainer",content);
 		this.add(whiteboard);
 	}
 
